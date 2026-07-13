@@ -14,6 +14,7 @@
 - 删除旧 HTML/CSS、密度检测和多 reviewer 流程。
 - 明确 raster PNG 与可编辑 PPTX 的能力边界和交接条件。
 - 增加生成后文字、数字和来源复核门禁。
+- 新增华为式 HTML 可编辑 deck 轨道：数据密集型技术汇报的编辑友好流程（≥16px 字号地板、N 栏对比、原生 SVG 架构图、评测表、数据接地门禁）。
 
 ## 目录结构
 
@@ -26,6 +27,7 @@ huawei-style-ppt-skill/
     ├── agents/
     │   └── openai.yaml
     └── references/
+        ├── ppt-html-authoring.md
         ├── ppt-lofi-authoring.md
         └── ppt-style-huawei.md
 ```
@@ -60,6 +62,7 @@ Skill 会先给出分页表和低保真稿；确认且当前宿主具备图像�
 |---|---|---|
 | Low-fi Markdown | 所有宿主；内容规划和审稿 | 不含最终视觉稿 |
 | Raster PNG | 宿主具备 image-generation 能力；快速出图和固定内容交付 | 文字、图表和形状不可独立编辑 |
+| Editable HTML deck | 数据密集、文字需精确可改、要导出 PPTX/PDF | 视觉规整度中等，需自行核算字号与溢出 |
 | Editable PPTX handoff | 正式汇报、需要反复改稿 | 本仓库不实现；必须交给独立的原生 PPTX authoring/export 工具 |
 
 不要把整页 PNG 宣称为“可编辑 PPT”。需要可编辑交付时，停止在低保真稿和视觉素材交付，并明确转交原生 PPTX 制作流程。

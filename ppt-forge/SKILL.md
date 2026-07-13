@@ -39,6 +39,8 @@ description: >
 2. **分页规划**：为每页写清页面类型、唯一主结论和承载元素；先让用户确认分页表。
 3. **低保真蓝图**：按 [低保真制作规范](references/ppt-lofi-authoring.md) 为每页画 ASCII 布局并写视觉指引。
 4. **风格锁定**：华为风格必须读取 [华为式专业汇报 preset](references/ppt-style-huawei.md)。
+   > 若为数据密集型技术汇报（基准表/指标/架构图/多方案对比，且文字需可编辑），改走
+   > [华为式 HTML 可编辑 deck 轨道](references/ppt-html-authoring.md)，不用 imagegen 出图。
 5. **能力预检**：确认当前宿主提供 image-generation / imagegen 工具；没有时停止在低保真稿交付。
 6. **逐页出图**：按已锁定宽高比逐页生成，命名为 `p{N}-{简短描述}.png`，不得一次生成整套拼图。
 7. **视觉与文字验收**：逐页核对层级、可读性、文字、数字、单位、来源和跨页一致性。
@@ -81,6 +83,10 @@ description: >
 ### Raster PNG
 
 适合追求视觉效果、快速预览和不可编辑交付。明确告知用户：文字不可搜索，图表不可编辑，后续改字需要重新生成或图像编辑。
+
+### Editable HTML deck
+
+数据密集型技术汇报（基准表、指标定义、架构/数据流图、多方案对比）且文字需精确可改、要导出 PPTX/PDF 时，走 [华为式 HTML 可编辑 deck 轨道](references/ppt-html-authoring.md)：手写华为 preset 版式的 HTML section，文字零伪字、可选中、可改稿，架构图用原生文字 SVG。视觉规整度中等，需自行核算字号地板（≥16px）与溢出。封面/愿景等氛围页仍可走 imagegen 轨道，与本轨道混用；底部总结条、配色、字体必须跨页一致。
 
 ### Editable PPTX handoff
 
