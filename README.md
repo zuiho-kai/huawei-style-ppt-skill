@@ -2,6 +2,31 @@
 
 面向战略汇报、架构总览、经营分析和方案对比，先整理事实与因果，再做分页和视觉交付。
 
+## 最新实测演示：研发季度总结
+
+由独立 sub-agent 使用当前 skill 制作的 5 页 HTML PPT，以下为 1280×720 浏览器实拍，替代旧版演示。包含季度总览、项目交付、故障变化、下季度计划和总结。
+
+[完整 HTML 源码](examples/rd-quarterly/index.html) · [下载 HTML](https://raw.githubusercontent.com/zuiho-kai/huawei-style-ppt-skill/master/examples/rd-quarterly/index.html) · [内容蓝图](examples/rd-quarterly/blueprint.md) · [使用与许可](examples/rd-quarterly/README.md)
+
+下载 HTML 后用浏览器打开，使用方向键或滚轮翻页，`B` 切换静态模式，`ESC` 打开索引。GitHub 文件页展示的是源码；字体和图标默认需要联网。
+
+![研发季度总结封面](examples/rd-quarterly/screenshots/01-cover.png)
+
+<details>
+<summary>展开其余 4 页实测截图</summary>
+
+![项目交付：12 个项目已完成，10 个按期](examples/rd-quarterly/screenshots/02-delivery.png)
+
+![故障变化：8 次降至 5 次](examples/rd-quarterly/screenshots/03-quality.png)
+
+![下季度计划：监控和发布回滚](examples/rd-quarterly/screenshots/04-plan.png)
+
+![季度总结](examples/rd-quarterly/screenshots/05-summary.png)
+
+</details>
+
+5 页成品通过静态校验及浏览器逐页检查，翻页与静态模式可用。已知限制：1280×720 下 ESC 索引缩略图右侧会裁切，不影响正常页面。演示数据为测试素材，非华为官方材料。
+
 ## 本次更新（2026-09-20）
 
 - 同步 clowder-ai 最新 PPT Forge 的事实取材、叙事清晰度与避免重复确认流程。

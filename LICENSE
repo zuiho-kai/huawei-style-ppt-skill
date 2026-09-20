@@ -2,7 +2,9 @@ MIT License
 
 Scope: this license covers the original PPT Forge material and its MIT-derived
 adaptations. It does not cover ppt-forge/vendor/guizang/, which is distributed
-under AGPL-3.0 with its own LICENSE and UPSTREAM.md. Template-derived works
+under AGPL-3.0 with its own LICENSE and UPSTREAM.md. The template-derived demo
+in examples/rd-quarterly/ is also distributed under its included AGPL-3.0
+LICENSE and UPSTREAM.md. Template-derived works
 must comply with that license; this notice does not relicense upstream work.
 
 Copyright (c) 2026 Clowder AI Contributors
