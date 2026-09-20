@@ -1,5 +1,10 @@
 MIT License
 
+Scope: this license covers the original PPT Forge material and its MIT-derived
+adaptations. It does not cover ppt-forge/vendor/guizang/, which is distributed
+under AGPL-3.0 with its own LICENSE and UPSTREAM.md. Template-derived works
+must comply with that license; this notice does not relicense upstream work.
+
 Copyright (c) 2026 Clowder AI Contributors
 Copyright (c) 2026 Rewrite authors
 
@@ -7,7 +12,8 @@ This distribution includes adapted reference documents from
 https://github.com/zts212653/clowder-ai (branch: main,
 paths: cat-cafe-skills/ppt-forge/SKILL.md,
 cat-cafe-skills/refs/ppt-lofi-authoring.md, and
-cat-cafe-skills/refs/ppt-style-huawei.md).
+cat-cafe-skills/refs/ppt-style-huawei.md, and
+cat-cafe-skills/refs/narrative-clarity.md).
 The standalone adaptation reorganizes paths, removes project-specific role
 coupling, and adds readability, editability, and output-validation guidance.
 Original insights and case studies remain credited to the clowder-ai authors.

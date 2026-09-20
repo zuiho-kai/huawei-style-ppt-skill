@@ -3,14 +3,14 @@ name: ppt-forge
 description: >
   制作高质量演示文稿的完整工作流：内容分析、分页规划、低保真蓝图、华为式视觉规范、
   imagegen 逐页出图与人工验收。适用于 PPT、slide、架构图、技术蓝图、工作汇报和客户提案；
-  输出低保真 Markdown，并在宿主具备图像生成能力时输出指定宽高比的 raster PNG。
+  输出低保真 Markdown、指定宽高比的 raster PNG，或使用归藏华为模板制作横向翻页 HTML PPT。
 ---
 
 # PPT Forge — 低保真蓝图 → AI 精美图
 
 ## 核心原则
 
-**先把信息设计清楚，再让 imagegen 负责视觉表现。** 不用 HTML/SVG 手工拼出最终画面。
+**先把信息设计清楚，再按输出模式制作。** Raster 模式用 imagegen 逐页出图；用户要网页演示时使用内置 HTML 模板。
 
 - **内容作者**：分析材料、规划分页、编写低保真 Markdown。
 - **视觉生成器**：根据逐页蓝图生成已锁定宽高比的 raster PNG。
@@ -29,14 +29,16 @@ description: >
 | 场景 | 怎么用 | 大屏汇报 / 会后阅读 / 客户提案 |
 | 内容取舍 | 是否允许删减 | 全保留 / 只保留核心亮点 |
 | 宽高比 | 贯穿蓝图和最终图片 | 16:9（默认）/ 4:3 / 用户指定 |
-| 输出模式 | 决定交付能力 | low-fi only / raster PNG |
+| 输出模式 | 决定交付能力 | low-fi only / raster PNG / HTML deck |
 
 没有这些参数，就先做最佳判断并明确写在分页方案里；不要直接批量出图。
 
 ## 工作流
 
-1. **内容分析**：读完原始材料，提取核心板块、关键数据、逻辑关系和证据来源。
-2. **分页规划**：为每页写清页面类型、唯一主结论和承载元素；先让用户确认分页表。
+用户要 HTML、网页或浏览器翻页演示时，读取 [HTML 制作规范](references/ppt-html-authoring.md)，在完成内容分析和分页后进入模板制作与浏览器验收，不执行下面的 imagegen 能力预检和出图步骤。未指定模式时仍默认 raster；没有图像生成能力时交付蓝图，并说明可选的 HTML 模式，不擅自切换。
+
+1. **内容分析**：读完原始材料，提取核心板块、关键数据、逻辑关系和证据来源。经历或贡献混杂、材料只剩名词列表时，先按 [事实与因果规范](references/narrative-clarity.md) 整理，再分页。
+2. **分页规划**：为每页写清页面类型、唯一主结论和承载元素；方向未定时先确认分页表。已有明确蓝图或用户已授权直接制作时继续，不重复要求确认。
 3. **低保真蓝图**：按 [低保真制作规范](references/ppt-lofi-authoring.md) 为每页画 ASCII 布局并写视觉指引。
 4. **风格锁定**：华为风格必须读取 [华为式专业汇报 preset](references/ppt-style-huawei.md)。
 5. **能力预检**：确认当前宿主提供 image-generation / imagegen 工具；没有时停止在低保真稿交付。
@@ -86,6 +88,10 @@ description: >
 
 本 skill 不实现 PPTX authoring/export。用户需要可编辑交付时，停止在低保真 Markdown、逐页文字清单和可复用视觉素材交付，并转交独立的原生 PPTX 制作工具；不得承诺本仓库会生成可编辑文件。
 
+### HTML deck
+
+使用内置归藏 Style C 模板、H01–H42 版式及三套红灰主题，交付浏览器演示和可修改的 HTML 源码。完整流程和校验命令见 [HTML 制作规范](references/ppt-html-authoring.md)。此模式不要求 imagegen，也不等于原生可编辑 PPTX；模板的联网依赖及 AGPL 许可随交付说明。
+
 ## 验收门禁
 
 - 每页只保留一个主结论，3–6 个核心信息组。
@@ -109,4 +115,6 @@ description: >
 
 ## 来源
 
-本版本同步并整理自 `zts212653/clowder-ai` 的 `cat-cafe-skills/ppt-forge`、`ppt-lofi-authoring.md` 和 `ppt-style-huawei.md`，对应上游 `main` 分支 2026-06-17 的 PPT Forge 更新。仓库内引用已改成自包含路径，并移除对上游角色人格和内部工具的依赖。
+2026-09-20 同步检查 `zts212653/clowder-ai` 提交 `22385b60e01aee9d8691b6a867836ff0e94fa77f`：吸收事实取材、叙事清晰度和避免重复确认的更新；低保真及华为 preset 上游内容未变，保留本仓库的可读性与文字复核增强。引用均为自包含路径，不依赖上游内部角色或工具。
+
+HTML 模式资源来自 `seandongx/guizang-ppt-skill` 提交 `8653aaca8d2949cd576752704dc50671a4f35854`，原作者歸藏，按 AGPL-3.0 单独分发，详见 [来源记录](vendor/guizang/UPSTREAM.md)。

@@ -1,4 +1,4 @@
 interface:
   display_name: "PPT Forge"
-  short_description: "从低保真蓝图到逐页出图，规划并生成华为式专业演示文稿"
+  short_description: "制作华为式演示文稿：低保真蓝图、逐页图片与归藏模板网页 PPT"
   default_prompt: "Use $ppt-forge to plan and create a Huawei-style presentation from my source material."
