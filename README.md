@@ -1,87 +1,82 @@
 # 华为风格 PPT Skill
 
-面向战略汇报、架构总览、经营分析和方案对比的 PPT 制作工作流。新版采用：
+面向战略汇报、架构总览、经营分析和方案对比，先整理事实与因果，再做分页和视觉交付。
 
-> 内容分析 → 分页规划 → 低保真 Markdown 蓝图 → imagegen 逐页出图 → 视觉与文字验收
+## 本次更新（2026-09-20）
 
-相比旧版 HTML/CSS 高密度管线，新版不再用空白率和元素数量驱动排版，优先保证主结论、信息层级和视觉质量。
+- 同步 clowder-ai 最新 PPT Forge 的事实取材、叙事清晰度与避免重复确认流程。
+- 接入 `seandongx/guizang-ppt-skill` 的华为网页 PPT：42 种版式、3 套红灰主题、模板和两个校验脚本。
+- 保留原有 imagegen 逐页出图、低保真蓝图、大屏可读性和生成后文字复核。
+- 按模式加载资源，HTML 模式无需图像生成能力；不承诺原生可编辑 PPTX。
 
-## 主要变化
+## 安装与使用
 
-- 同步 `clowder-ai` 2026-06-17 的新版 PPT Forge 流程。
-- 用 ASCII art 低保真蓝图锁定每页结构，再交给 imagegen。
-- 新增完整华为风格 preset：色板、灰度、字体、8 种页面模式、图表配色和禁忌清单。
-- 删除旧 HTML/CSS、密度检测和多 reviewer 流程。
-- 明确 raster PNG 与可编辑 PPTX 的能力边界和交接条件。
-- 增加生成后文字、数字和来源复核门禁。
-
-## 目录结构
-
-```text
-huawei-style-ppt-skill/
-├── README.md
-├── LICENSE
-└── ppt-forge/
-    ├── SKILL.md
-    ├── agents/
-    │   └── openai.yaml
-    └── references/
-        ├── ppt-lofi-authoring.md
-        └── ppt-style-huawei.md
-```
-
-## 快速开始
-
-### 前置能力
-
-最终出图要求宿主提供可调用的 image-generation / imagegen 工具。安装后先确认当前会话能生成图片；如果宿主没有该能力，本 skill 只交付分页表和低保真 Markdown，不承诺生成最终视觉稿。
-
-Claude Code：
+复制完整的 `ppt-forge/`，包括 `references/` 和 `vendor/`：
 
 ```bash
+# Codex
+cp -r ppt-forge ~/.codex/skills/
+# Claude Code
 cp -r ppt-forge ~/.claude/skills/
 ```
 
-Codex：
+需求示例：
 
-```bash
-cp -r ppt-forge ~/.codex/skills/
-```
+> 做一套华为式技术方案汇报，受众是 CTO，大屏展示，内容可以适度精简，逐页出图。
 
-然后直接提出需求：
+> 用华为风格做 10 页年度工作总结，交付能在浏览器翻页的 HTML，使用归藏模板。
 
-> 做一套华为式技术方案汇报，受众是 CTO，大屏展示，内容可以适度精简。
-
-Skill 会先给出分页表和低保真稿；确认且当前宿主具备图像生成能力后，才逐页生成最终视觉稿。
+信息不足时先列明假设和分页方案；已有明确蓝图或直接制作授权时继续执行，不重复确认。
 
 ## 输出模式
 
-| 模式 | 适用场景 | 限制 |
+| 模式 | 能力与前置条件 | 边界 |
 |---|---|---|
-| Low-fi Markdown | 所有宿主；内容规划和审稿 | 不含最终视觉稿 |
-| Raster PNG | 宿主具备 image-generation 能力；快速出图和固定内容交付 | 文字、图表和形状不可独立编辑 |
-| Editable PPTX handoff | 正式汇报、需要反复改稿 | 本仓库不实现；必须交给独立的原生 PPTX authoring/export 工具 |
+| Low-fi Markdown | 内容分析、分页、文字清单和蓝图 | 不含最终视觉稿 |
+| Raster PNG（默认） | 宿主具备 image-generation / imagegen 工具，逐页生成 | 文字和图表不可独立编辑 |
+| HTML deck | 内置归藏 Style C 模板，Node.js 做静态检查、浏览器做视觉验收 | HTML 源码可修改；不是 PPTX；字体与图标默认依赖 CDN |
+| Editable PPTX handoff | 交付蓝图、文字清单和素材，转交独立原生 PPTX 工具 | 本仓库不实现 PPTX authoring/export |
 
-不要把整页 PNG 宣称为“可编辑 PPT”。需要可编辑交付时，停止在低保真稿和视觉素材交付，并明确转交原生 PPTX 制作流程。
+没有 imagegen 时，raster 模式停在低保真稿，并说明 HTML 选项。HTML 与 raster 使用各自完整色板，不混用主题变量。
 
-## 使用前必读
+## 目录
 
-- 一页只讲一个主结论；高密度不等于没有留白。
-- 先确认分页和最复杂的一页，再批量生成。
-- 图片中的文字必须逐字核对，尤其是中文、数字、单位和来源。
-- 华为红只用于关键数据和结论，不应铺满整页。
-- 正式交付前必须并排查看整套页面，检查字体、配色、装饰和密度是否漂移。
+```text
+ppt-forge/
+├── SKILL.md
+├── agents/openai.yaml
+├── references/
+│   ├── narrative-clarity.md
+│   ├── ppt-lofi-authoring.md
+│   ├── ppt-style-huawei.md
+│   └── ppt-html-authoring.md
+└── vendor/guizang/
+    ├── LICENSE
+    ├── UPSTREAM.md
+    ├── assets/template-huawei.html
+    ├── references/{layouts,themes}-huawei.md
+    └── scripts/validate-huawei-{template,deck}.mjs
+```
 
-## 来源与许可
+## 验收
 
-新版工作流同步自 [`zts212653/clowder-ai`](https://github.com/zts212653/clowder-ai) `main` 分支：
+一页一个主结论；密度服从观看距离，放不下优先拆页。逐项核对文字、数据、单位和来源，整套并排检查字体、色板和装饰是否一致。
 
-| 上游文件 | 本仓库文件 |
-|---|---|
-| `cat-cafe-skills/ppt-forge/SKILL.md` | `ppt-forge/SKILL.md` |
-| `cat-cafe-skills/refs/ppt-lofi-authoring.md` | `ppt-forge/references/ppt-lofi-authoring.md` |
-| `cat-cafe-skills/refs/ppt-style-huawei.md` | `ppt-forge/references/ppt-style-huawei.md` |
+HTML 模式先运行：
 
-同步基线：上游 PPT Forge 最近提交 `f3d530cea3ef`（2026-06-17）。本仓库将上游分散引用整理为可独立安装的 skill，并移除了项目内部角色与工具耦合。
+```bash
+cd ppt-forge/vendor/guizang
+node scripts/validate-huawei-template.mjs
+node scripts/validate-huawei-deck.mjs /absolute/path/to/index.html
+```
 
-MIT License，详见 [LICENSE](LICENSE)。
+再在浏览器检查全部页面、翻页、索引和静态模式；静态检查通过不代表视觉验收通过。详细操作见 [HTML 制作规范](ppt-forge/references/ppt-html-authoring.md)。
+
+## 上游与许可
+
+| 来源 | 同步基线 | 本次处理 |
+|---|---|---|
+| [zts212653/clowder-ai](https://github.com/zts212653/clowder-ai) | `22385b60e01aee9d8691b6a867836ff0e94fa77f` | 吸收 PPT Forge 叙事更新，内置精简叙事参考；低保真与华为 preset 相对旧基线无上游变化，保留本仓库增强 |
+| [seandongx/guizang-ppt-skill](https://github.com/seandongx/guizang-ppt-skill) | `8653aaca8d2949cd576752704dc50671a4f35854` | 原样引入华为模板、版式、主题和校验器；原作者为 [歸藏 / op7418](https://github.com/op7418/guizang-ppt-skill) |
+
+原有 PPT Forge 文档与 MIT 改编部分继续遵循 [MIT](LICENSE)。`ppt-forge/vendor/guizang/` 遵循独立的 [AGPL-3.0](ppt-forge/vendor/guizang/LICENSE)，不是 MIT；模板衍生作品也须遵守相应许可。分发 HTML 时附带许可、来源和适用的源码获取方式。版本和文件映射见 [UPSTREAM.md](ppt-forge/vendor/guizang/UPSTREAM.md)。
